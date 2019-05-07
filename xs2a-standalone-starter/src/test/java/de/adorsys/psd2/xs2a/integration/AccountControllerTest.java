@@ -50,6 +50,7 @@ import de.adorsys.psd2.xs2a.spi.service.AccountSpi;
 import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -200,6 +201,7 @@ public class AccountControllerTest {
     }
 
     @Test
+    @Ignore
     public void getAccountList_TwoRequestSuccessfulThirdRequestFailed() throws Exception {
         // Given
         MockHttpServletRequestBuilder requestBuilder = get(UrlBuilder.buildGetAccountList());
