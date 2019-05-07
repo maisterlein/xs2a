@@ -50,7 +50,6 @@ import de.adorsys.psd2.xs2a.spi.service.AccountSpi;
 import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +73,7 @@ import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.*;
 
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyListOf;
@@ -201,7 +201,6 @@ public class AccountControllerTest {
     }
 
     @Test
-    @Ignore
     public void getAccountList_TwoRequestSuccessfulThirdRequestFailed() throws Exception {
         // Given
         MockHttpServletRequestBuilder requestBuilder = get(UrlBuilder.buildGetAccountList());
@@ -221,6 +220,8 @@ public class AccountControllerTest {
         for (int usage = 2; usage >= 0; usage--) {
             AisAccountConsent aisAccountConsent = buildAisAccountConsent(usage);
             given(aisConsentServiceRemote.getAisAccountConsentById(CONSENT_ID)).willReturn(Optional.of(aisAccountConsent));
+            given(aisConsentServiceRemote.updateAspspAccountAccessWithResponse(eq(CONSENT_ID), any()))
+                .willReturn(Optional.of(aisAccountConsent));
             AccountConsent accountConsent = buildAccountConsent(aisAccountConsent.getUsageCounter());
             given(xs2aAisConsentMapper.mapToAccountConsent(aisAccountConsent)).willReturn(accountConsent);
             given(xs2aAisConsentMapper.mapToSpiAccountConsent(accountConsent)).willReturn(spiAccountConsent);
