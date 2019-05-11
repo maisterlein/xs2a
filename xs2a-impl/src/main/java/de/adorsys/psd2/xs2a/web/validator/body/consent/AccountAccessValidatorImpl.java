@@ -105,18 +105,20 @@ public class AccountAccessValidatorImpl extends AbstractBodyValidatorImpl implem
         checkOptionalFieldForMaxLength(accountReference.getMaskedPan(), "Masked PAN", 35, messageError);
         checkOptionalFieldForMaxLength(accountReference.getMsisdn(), "MSISDN", 35, messageError);
 
-        validateCurrency(accountReference, messageError);
+        if (Objects.nonNull(accountReference.getCurrency())) {
+            validateCurrency(accountReference.getCurrency(), messageError);
+        }
     }
 
-    private void validateCurrency(AccountReference accountReference, MessageError messageError) {
-        if (!isValidCurrency(accountReference.getCurrency())) {
+    private void validateCurrency(String currency, MessageError messageError) {
+        if (!isValidCurrency(currency)) {
             errorBuildingService.enrichMessageError(messageError, "Invalid currency code format");
         }
     }
 
     private boolean isValidIban(String iban) {
         IBANValidator validator = IBANValidator.getInstance();
-        return validator.isValid(normalizeString(iban));
+        return validator.isValid(iban);
     }
 
     private boolean isValidBban(String bban) {
