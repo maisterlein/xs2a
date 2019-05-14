@@ -67,8 +67,12 @@ public class AccountAccessValidatorImpl extends AbstractBodyValidatorImpl implem
         AccountAccess accountAccess = consents.getAccess();
         if (Objects.nonNull(accountAccess.getAccounts())) {
             List<AccountReference> accountAccesses = accountAccess.getAccounts();
-            accountAccesses.addAll(accountAccess.getBalances());
-            accountAccesses.addAll(accountAccess.getTransactions());
+            if (Objects.nonNull(accountAccess.getBalances())) {
+                accountAccesses.addAll(accountAccess.getBalances());
+            }
+            if (Objects.nonNull(accountAccess.getTransactions())) {
+                accountAccesses.addAll(accountAccess.getTransactions());
+            }
 
             if (CollectionUtils.isNotEmpty(accountAccesses)) {
                 accountAccesses.forEach(ar -> validateAccountReference(ar, messageError));
