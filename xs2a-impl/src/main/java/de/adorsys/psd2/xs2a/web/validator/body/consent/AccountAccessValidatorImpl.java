@@ -116,6 +116,9 @@ public class AccountAccessValidatorImpl extends AbstractBodyValidatorImpl implem
         }
     }
 
+    // TODO: create an opportunity to disable this IBAN validation for test purposes.
+    // https://git.adorsys.de/adorsys/xs2a/aspsp-xs2a/issues/839
+    // Example, implement it as separate bean and inject it here.
     private boolean isValidIban(String iban) {
         IBANValidator validator = IBANValidator.getInstance();
         return validator.isValid(iban);
