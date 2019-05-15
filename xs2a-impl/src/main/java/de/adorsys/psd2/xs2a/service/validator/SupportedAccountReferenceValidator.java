@@ -56,12 +56,11 @@ public class SupportedAccountReferenceValidator implements BusinessValidator<Col
             return ValidationResult.valid();
         }
 
-        AccountReference accountReference = accountReferences.stream()
-                                                .filter(ar -> ar.getUsedAccountReferenceFields().size() > 1)
-                                                .findFirst()
-                                                .orElse(null);
+        Optional<AccountReference> accountWithSeveralUsedTypes = accountReferences.stream()
+                                                                     .filter(ar -> ar.getUsedAccountReferenceFields().size() > 1)
+                                                                     .findFirst();
 
-        if (Objects.nonNull(accountReference)) {
+        if (accountWithSeveralUsedTypes.isPresent()) {
             ErrorType errorType = errorTypeMapper.mapToErrorType(serviceTypeDiscoveryService.getServiceType(),
                                                                  FORMAT_ERROR.getCode());
             return ValidationResult.invalid(errorType, TppMessageInformation.of(FORMAT_ERROR,
