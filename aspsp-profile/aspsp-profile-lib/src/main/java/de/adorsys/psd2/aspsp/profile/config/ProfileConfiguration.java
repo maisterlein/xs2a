@@ -18,12 +18,14 @@ package de.adorsys.psd2.aspsp.profile.config;
 
 import de.adorsys.psd2.xs2a.core.ais.BookingStatus;
 import de.adorsys.psd2.xs2a.core.profile.ScaApproach;
+import de.adorsys.psd2.xs2a.core.profile.ScaRedirectFlow;
 import lombok.Data;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.InitializingBean;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import static de.adorsys.psd2.xs2a.core.ais.BookingStatus.BOOKED;
 
@@ -35,11 +37,18 @@ public class ProfileConfiguration implements InitializingBean {
     public void afterPropertiesSet() {
         setDefaultScaApproach(ScaApproach.REDIRECT);
         setDefaultBookingStatus(BOOKED);
+        setDefaultScaRedirectFlow();
     }
 
     private void setDefaultScaApproach(ScaApproach scaApproach) {
         if (CollectionUtils.isEmpty(setting.getScaApproaches())) {
             setting.setScaApproaches(Collections.singletonList(scaApproach));
+        }
+    }
+
+    private void setDefaultScaRedirectFlow() {
+        if (Objects.isNull(setting.getScaRedirectFlow())) {
+            setting.setScaRedirectFlow(ScaRedirectFlow.REDIRECT);
         }
     }
 
