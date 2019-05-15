@@ -4,3 +4,7 @@
 == Bugfix: Incorrect property name in the response to the AIS consent creation request
 
 From now on,  the endpoint for consent creation (POST `/v1/consents`) returns correct response with field `psuMessage` instead of `message`.
+
+== Counting frequencyPerDay only for one-off consent or for recurring consent without PSU IP address
+From now on, we don't count the number of consent usages for recurring consent with PSU IP address (`PSU-IP-Address` header) for every endpoint.
+
