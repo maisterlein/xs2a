@@ -20,12 +20,6 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
     <changeSet author="age@adorsys.de" id="2019-05-11-1">
-        <preConditions onFail="MARK_RAN" onSqlOutput="TEST">
-            <not>
-                <dbms type="oracle"/>
-            </not>
-        </preConditions>
-
         <comment>Extend iban column</comment>
 
         <modifyDataType tableName="account_reference" columnName="iban" newDataType="VARCHAR(34)"/>
