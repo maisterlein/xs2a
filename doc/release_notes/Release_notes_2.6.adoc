@@ -1,0 +1,9 @@
+= Release notes v.2.6
+
+== Table of Contents
+
+* Update version of spring-data-jpa to 1.11.22.RELEASE
+
+== Update version of spring-data-jpa to 1.11.22.RELEASE
+
+Fixed potential security vulnerability in a repository that have been granted security alert access.
