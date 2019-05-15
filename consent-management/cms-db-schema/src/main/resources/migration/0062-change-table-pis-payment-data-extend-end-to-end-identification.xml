@@ -19,9 +19,9 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet author="age@adorsys.de" id="2019-05-15-1">
-        <comment>Extend iban column</comment>
+    <changeSet author="age@adorsys.de" id="2019-05-15-2">
+        <comment>Extend end_to_end_identification column</comment>
 
-        <modifyDataType tableName="account_reference" columnName="iban" newDataType="VARCHAR(34)"/>
+        <modifyDataType tableName="pis_payment_data" columnName="end_to_end_identification" newDataType="VARCHAR(35)"/>
     </changeSet>
 </databaseChangeLog>
