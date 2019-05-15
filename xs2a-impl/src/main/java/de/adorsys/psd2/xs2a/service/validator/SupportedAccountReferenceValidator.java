@@ -70,8 +70,12 @@ public class SupportedAccountReferenceValidator implements BusinessValidator<Col
 
         List<SupportedAccountReferenceField> supportedAccountReferenceFields = aspspProfileService.getSupportedAccountReferenceFields();
 
+        List<AccountReferenceType> supportedAccountReferences = supportedAccountReferenceFields.stream()
+                                                                    .map(f -> AccountReferenceType.valueOf(f.name()))
+                                                                    .collect(Collectors.toList());
+
         Optional<ValidationResult> failedValidationResult = accountReferences.stream()
-                                                                .map(ar -> validateAccountReference(ar, supportedAccountReferenceFields))
+                                                                .map(ar -> validateAccountReference(ar, supportedAccountReferences))
                                                                 .filter(ValidationResult::isNotValid)
                                                                 .findFirst();
 
@@ -79,12 +83,8 @@ public class SupportedAccountReferenceValidator implements BusinessValidator<Col
     }
 
     private ValidationResult validateAccountReference(AccountReference accountReference,
-                                                      Collection<SupportedAccountReferenceField> supportedFields) {
+                                                      List<AccountReferenceType> supportedAccountReferences) {
         Set<AccountReferenceType> usedAccountReferences = accountReference.getUsedAccountReferenceFields();
-
-        List<AccountReferenceType> supportedAccountReferences = supportedFields.stream()
-                                                                    .map(f -> AccountReferenceType.valueOf(f.name()))
-                                                                    .collect(Collectors.toList());
 
         Collection<AccountReferenceType> wrongReferences = CollectionUtils.subtract(usedAccountReferences, supportedAccountReferences);
 
