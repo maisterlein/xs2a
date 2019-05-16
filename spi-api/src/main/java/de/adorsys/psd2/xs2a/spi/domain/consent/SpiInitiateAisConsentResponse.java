@@ -29,4 +29,5 @@ public class SpiInitiateAisConsentResponse {
     private SpiAccountAccess accountAccess;
 
     private boolean multilevelScaRequired;
+    private String psuMessage;
 }
