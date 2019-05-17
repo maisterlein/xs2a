@@ -19,3 +19,7 @@ https://nvd.nist.gov/vuln/detail/CVE-2019-3797[Additional information exposure w
 
 Please use `getExchangeRate` instead of `getRate`, `getQuotationDate` instead of `getRateDate` and `getContractIdentification`
 instead of `getRateContract`.
+
+== PSU-IP-Address header is mandatory in AIS consent creation request
+
+From now on, TPP must provide `PSU-IP-Address` header in AIS consent creation request.
