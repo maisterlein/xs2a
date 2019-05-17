@@ -102,7 +102,7 @@ public class AisConsentSpiImpl implements AisConsentSpi {
             }
 
             String psuMessage = Optional.ofNullable(spiContextData.getPsuData())            // added for test purposes TODO remove if some requirements will be received https://git.adorsys.de/adorsys/xs2a/aspsp-xs2a/issues/394
-                                    .filter(psu -> StringUtils.isNoneBlank(psu.getPsuId()))
+                                    .filter(psu -> StringUtils.isNotBlank(psu.getPsuId()))
                                     .map(psu -> TEST_PSU_MESSAGE)
                                     .orElse(null);
 
